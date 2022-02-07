@@ -3,7 +3,9 @@ import { Response } from 'express';
 import cors from 'cors';
 import authApp from './api/auth';
 import graphsApp from './api/graph';
-import {connect} from './lib/prisma/client';
+import questionsApp from './api/questions/postQuestion';
+
+import { connect } from './lib/prisma/client';
 
 const mainApp = express();
 
@@ -29,8 +31,9 @@ mainApp.use(cors());
 
 mainApp.use('/graph', graphsApp);
 mainApp.use('/auth', authApp);
+mainApp.use('/questions', questionsApp);
 
 mainApp.listen(port, () => {
-    connect()
+    connect();
     console.log(`App listening on PORT ${port}`);
 });
