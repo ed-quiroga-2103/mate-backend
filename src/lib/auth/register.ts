@@ -1,17 +1,26 @@
-import { User } from '../../types';
-import UserModel from '../database/schemas/User';
+import { users } from '@prisma/client';
+import { client } from '../prisma/client';
+const register = async (data: users) => {
+    const exists = await client.users.findFirst({
+        where: {
+            email: data.email,
+        },
+    });
 
-const register = async (data: User) => {
-    const exists = await UserModel.find({ email: data.email });
-
-    if (exists.length > 0) {
+    if (exists) {
         return undefined;
     }
 
-    const newUser = new UserModel(data);
-    await newUser.save().catch((error) => {
-        console.log(error);
-    });
+    const newUser = await client.users
+        .create({
+            data: {
+                ...data,
+                progress: {},
+            },
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 
     return newUser;
 };

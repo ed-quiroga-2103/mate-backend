@@ -1,9 +1,14 @@
-import UserModel from '../database/schemas/User';
+import { client } from '../prisma/client';
 
 const login = async (email, password) => {
-    const user = await UserModel.find({ email, password }, { password: 0 });
+    const user = await client.users.findFirst({
+        where: {
+            email,
+            password,
+        },
+    });
 
-    return user[0];
+    return user;
 };
 
 export default login;

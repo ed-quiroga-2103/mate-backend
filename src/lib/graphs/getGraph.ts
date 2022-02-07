@@ -1,7 +1,11 @@
-import GraphModel from '../database/schemas/Graph';
+import { client } from '../prisma/client';
 
 const getGraph = async (id) => {
-    const graph = await GraphModel.findById(id);
+    const graph = await client.graphs.findUnique({
+        where: {
+            id,
+        },
+    });
 
     return graph;
 };

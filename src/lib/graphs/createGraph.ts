@@ -1,18 +1,25 @@
-import GraphModel from '../database/schemas/Graph';
+import { client } from '../prisma/client'
 
 const createGraph = async (data) => {
-    const exists = await GraphModel.find({ _id: data._id });
+    const exists = await client.graphs.findFirst({
+        where: {
+            id: data._id,
+        },
+    })
 
-    if (exists.length > 0) {
-        return undefined;
+    if (exists) {
+        return undefined
     }
 
-    const newUser = new GraphModel(data);
-    await newUser.save().catch((error) => {
-        console.log(error);
-    });
+    const newUser = await client.graphs
+        .create({
+            data,
+        })
+        .catch((error) => {
+            console.log(error)
+        })
 
-    return newUser;
-};
+    return newUser
+}
 
-export default createGraph;
+export default createGraph

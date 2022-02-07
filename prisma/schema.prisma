@@ -1,0 +1,51 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model graphs {
+  id          String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  description String
+  links       Json[]
+  name        String
+  nodes       Json[]
+  status      String
+}
+
+model photos_chunks {
+  id       String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  data     Bytes
+  files_id String @db.ObjectId
+  n        Int
+
+  @@unique([files_id, n], map: "files_id_1_n_1")
+  @@map("photos.chunks")
+}
+
+model photos_files {
+  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  chunkSize  Int
+  filename   String
+  length     Int
+  uploadDate DateTime @db.Date
+
+  @@index([filename, uploadDate], map: "filename_1_uploadDate_1")
+  @@map("photos.files")
+}
+
+model users {
+  id           String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  admitionYear String
+  dni          String
+  email        String
+  lastCourse   String
+  lastName     String
+  name         String
+  password     String
+  progress     Json
+}

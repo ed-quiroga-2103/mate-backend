@@ -1,18 +1,20 @@
-import GraphModel from '../database/schemas/Graph';
+import { GraphFilters } from '../../types';
+import { client } from '../prisma/client';
 
-const getAllGraphs = async (filter?) => {
+const getAllGraphs = async (filters?: GraphFilters) => {
     const filterParam = {};
 
-    if (filter) {
-        filterParam[`${filter.field}`] = {
-            $regex: `${filter.value}`,
-            $options: 'i',
-        };
+    if (filters) {
+        const result = await client.graphs.findMany({
+            where: filters,
+        });
+
+        return result;
     }
 
-    const graphs = await GraphModel.find(filterParam);
+    const result = await client.graphs.findMany();
 
-    return graphs;
+    return result;
 };
 
 export default getAllGraphs;

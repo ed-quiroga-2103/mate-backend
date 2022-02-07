@@ -1,11 +1,16 @@
-import GraphModel from '../database/schemas/Graph';
+import { client } from '../prisma/client';
 
-const updateGraph = async (_id, data) => {
-    const graph = await GraphModel.findOneAndUpdate({ _id }, data, {
-        new: true,
-    }).catch((error) => {
-        console.log(error);
-    });
+const updateGraph = async (id, data) => {
+    const graph = await client.graphs
+        .update({
+            where: {
+                id,
+            },
+            data,
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 
     return graph;
 };
