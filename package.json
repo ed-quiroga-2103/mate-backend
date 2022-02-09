@@ -6,9 +6,9 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "watch": "npx tsc",
-        "dev": "nodemon src/index.ts",
+        "dev": "npx prisma generate && nodemon src/index.ts",
         "prisma:pull": "npx prisma db pull && npmx prisma generate",
-        "prisma:generate": "npx prisma generate"
+        "prisma:gen": "npx prisma generate"
     },
     "author": "",
     "license": "ISC",
