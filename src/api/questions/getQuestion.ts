@@ -1,47 +1,27 @@
-import { MongoClient, GridFSBucket as Grid, ObjectId } from 'mongodb';
-import { Response, Request } from 'express';
-
-import config from '../../lib/config/config';
-
-let db;
-
-MongoClient.connect(config.DATABASE_URI, (err, database) => {
-    if (err) {
-        console.log(
-            'MongoDB Connection Error. Please make sure that MongoDB is running.'
-        );
-        process.exit(1);
-    }
-    db = database.db('mate');
-});
+import { Request, Response } from 'express';
+import { client } from '../../lib/prisma/client';
+import { Question } from '../../types';
+import { sendRestError } from '../../util';
 
 const getQuestion = async (req: Request, res: Response) => {
-    try {
-        var photoID = new ObjectId(req.params.photoID);
-    } catch (err) {
-        return res.status(400).json({
-            message:
-                'Invalid PhotoID in URL parameter. Must be a single String of 12 bytes or a string of 24 hex characters',
+    const question = await client.questions
+        .findFirst({
+            where: {
+                id: req.params.id as string,
+            },
+        })
+        .catch((error) => {
+            sendRestError(res, 500, {
+                message: 'Something went wrong querying your data',
+                verbose: 'internal error',
+            });
+
+            return undefined;
         });
-    }
 
-    let bucket = new Grid(db, {
-        bucketName: 'photos',
-    });
+    if (!question) return;
 
-    let downloadStream = bucket.openDownloadStream(photoID);
-
-    downloadStream.on('data', (chunk) => {
-        res.write(chunk);
-    });
-
-    downloadStream.on('error', () => {
-        res.sendStatus(404);
-    });
-
-    downloadStream.on('end', () => {
-        res.end();
-    });
+    res.json({ question });
 };
 
 export default getQuestion;

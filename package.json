@@ -1,14 +1,14 @@
 {
     "name": "express-server-ts",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "description": "parkingTEC express server",
     "main": "dist/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "watch": "npx tsc",
-        "dev": "nodemon src/index.ts",
+        "dev": "npx prisma generate && nodemon src/index.ts",
         "prisma:pull": "npx prisma db pull && npmx prisma generate",
-        "prisma:generate": "npx prisma generate"
+        "prisma:gen": "npx prisma generate"
     },
     "author": "",
     "license": "ISC",
@@ -28,6 +28,7 @@
         "cors": "^2.8.5",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
+        "formidable": "^2.0.1",
         "jsonwebtoken": "^8.5.1",
         "mongodb": "^4.1.3",
         "mongoose": "^6.0.11",

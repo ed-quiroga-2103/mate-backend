@@ -49,3 +49,14 @@ model users {
   password     String
   progress     Json
 }
+
+model questions {
+
+  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  tags       String[]
+  url        String?
+  course     String
+  difficulty String
+  options    Json[]
+
+}

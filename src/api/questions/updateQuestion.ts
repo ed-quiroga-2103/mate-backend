@@ -3,11 +3,15 @@ import { client } from '../../lib/prisma/client';
 import { Question } from '../../types';
 import { sendRestError } from '../../util';
 
-const postQuestion = async (req: Request, res: Response) => {
+const updateQuestion = async (req: Request, res: Response) => {
     const data: Question = req.body;
+    const id = req.params.id as string;
 
     const question = await client.questions
-        .create({
+        .update({
+            where: {
+                id,
+            },
             data: {
                 options: data.options as object[],
                 difficulty: data.difficulty,
@@ -17,7 +21,7 @@ const postQuestion = async (req: Request, res: Response) => {
         })
         .catch((error) => {
             sendRestError(res, 500, {
-                message: 'Something went wrong posting your data',
+                message: 'Something went wrong updating your data',
                 verbose: 'internal error',
             });
 
@@ -29,4 +33,4 @@ const postQuestion = async (req: Request, res: Response) => {
     res.json({ question });
 };
 
-export default postQuestion;
+export default updateQuestion;

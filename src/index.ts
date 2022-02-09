@@ -3,7 +3,7 @@ import { Response } from 'express';
 import cors from 'cors';
 import authApp from './api/auth';
 import graphsApp from './api/graph';
-import questionsApp from './api/questions/postQuestion';
+import questionsApp from './api/questions/';
 
 import { connect } from './lib/prisma/client';
 
@@ -33,7 +33,10 @@ mainApp.use('/graph', graphsApp);
 mainApp.use('/auth', authApp);
 mainApp.use('/questions', questionsApp);
 
-mainApp.listen(port, () => {
-    connect();
+mainApp.listen(port, async () => {
+    await connect();
+    console.log('-----------------------------');
     console.log(`App listening on PORT ${port}`);
+    console.log(`Prisma connected to database`);
+    console.log('-----------------------------');
 });
