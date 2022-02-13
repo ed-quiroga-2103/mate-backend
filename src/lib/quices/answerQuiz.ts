@@ -12,7 +12,7 @@ const answerQuiz = async (quizId, answers: QuizAnswer[]) => {
     });
 
     if (!quiz) {
-        return undefined;
+        throw new Error('No quiz found');
     }
 
     const evaluation = evaluateQuiz(
