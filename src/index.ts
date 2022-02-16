@@ -12,7 +12,7 @@ const mainApp = express();
 const port = process.env.PORT || 3003;
 
 mainApp.get('/health', (req, res) => {
-    res.json(`\n
+    res.send(`\n
 ──────▄▀▄─────▄▀▄\n
 ─────▄█░░▀▀▀▀▀░░█▄\n
 ─▄▄──█░░░░░░░░░░░█──▄▄\n
