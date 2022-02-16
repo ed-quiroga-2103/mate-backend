@@ -12,7 +12,11 @@ const mainApp = express();
 const port = process.env.PORT || 3003;
 
 mainApp.get('/health', (req, res) => {
-    res.json('Hello from express and typescript');
+    res.json(`\n
+──────▄▀▄─────▄▀▄\n
+─────▄█░░▀▀▀▀▀░░█▄\n
+─▄▄──█░░░░░░░░░░░█──▄▄\n
+█▄▄█─█░░▀░░┬░░▀░░█─█▄▄█\nWhatchu doing here?\n\n\nServer running healthy`);
 });
 
 mainApp.use(
