@@ -9,33 +9,27 @@ datasource db {
 }
 
 model graphs {
-  id          String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id     String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  links  Json[]
+  nodes  Json[]
+  course course[]
+}
+
+model course {
+
+  id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
   description String
-  links       Json[]
   name        String
-  nodes       Json[]
   status      String
-}
+  code        String   @unique
+  dependecies String[]
 
-model photos_chunks {
-  id       String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  data     Bytes
-  files_id String @db.ObjectId
-  n        Int
 
-  @@unique([files_id, n], map: "files_id_1_n_1")
-  @@map("photos.chunks")
-}
+  graph graphs @relation(fields: [graphsId], references: [id], onDelete: Cascade)
 
-model photos_files {
-  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  chunkSize  Int
-  filename   String
-  length     Int
-  uploadDate DateTime @db.Date
-
-  @@index([filename, uploadDate], map: "filename_1_uploadDate_1")
-  @@map("photos.files")
+  graphsId  String      @db.ObjectId
+  questions questions[]
+  quiz      quiz[]
 }
 
 model users {
@@ -53,10 +47,44 @@ model users {
 model questions {
 
   id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  text       String
   tags       String[]
   url        String?
-  course     String
   difficulty String
   options    Json[]
+
+  courseId String @db.ObjectId
+
+
+  course course @relation(fields: [courseId], references: [id])
+
+
+
+}
+
+model quiz {
+
+  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  questions Json[]
+  tags      String[]
+  courseId  String   @db.ObjectId
+
+
+
+  course course @relation(fields: [courseId], references: [id])
+
+
+  quizResult quizResult[]
+}
+
+model quizResult {
+
+  id         String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  answers    Json[]
+  approved   Boolean
+  percentage Float
+
+  quizId String @db.ObjectId
+  quiz   quiz   @relation(fields: [quizId], references: [id], onDelete: Cascade)
 
 }

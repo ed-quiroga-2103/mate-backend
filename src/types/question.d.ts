@@ -1,4 +1,5 @@
 export interface Question {
+    text?: string;
     course: string;
     difficulty: string;
     tags: string[];

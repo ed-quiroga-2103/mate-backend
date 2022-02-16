@@ -2,9 +2,9 @@ import express from 'express';
 import { Response } from 'express';
 import cors from 'cors';
 import authApp from './api/auth';
-import graphsApp from './api/graph';
+import courseApp from './api/courses';
 import questionsApp from './api/questions/';
-
+import quicesApp from './api/quiz';
 import { connect } from './lib/prisma/client';
 
 const mainApp = express();
@@ -29,9 +29,10 @@ mainApp.use(
 );
 mainApp.use(cors());
 
-mainApp.use('/graph', graphsApp);
+mainApp.use('/courses', courseApp);
 mainApp.use('/auth', authApp);
 mainApp.use('/questions', questionsApp);
+mainApp.use('/quices', quicesApp);
 
 mainApp.listen(port, async () => {
     await connect();

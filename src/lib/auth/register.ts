@@ -19,7 +19,7 @@ const register = async (data: users) => {
             },
         })
         .catch((error) => {
-            console.log(error);
+            console.log(error); // TODO add error handling
         });
 
     return newUser;
