@@ -12,11 +12,14 @@ const mainApp = express();
 const port = process.env.PORT || 3003;
 
 mainApp.get('/health', (req, res) => {
-    res.send(`\n
-──────▄▀▄─────▄▀▄\n
-─────▄█░░▀▀▀▀▀░░█▄\n
-─▄▄──█░░░░░░░░░░░█──▄▄\n
-█▄▄█─█░░▀░░┬░░▀░░█─█▄▄█\nWhatchu doing here?\n\n\nServer running healthy`);
+    res.send(`
+    <h1>──────▄▀▄─────▄▀▄</h1>
+    <h1>─────▄█░░▀▀▀▀▀░░█▄</h1>
+    <h1>─▄▄──█░░░░░░░░░░░█──▄▄</h1>
+    <h1>█▄▄█─█░░▀░░┬░░▀░░█─█▄▄█</h1>
+    <h1>Whatchu doing here?</h1>
+    <h1>Server running healthy</h1>
+`);
 });
 
 mainApp.use(
