@@ -22,6 +22,10 @@ mainApp.get('/health', (req, res) => {
 `);
 });
 
+mainApp.get('/ping', (_, res) => {
+    res.json({ when: new Date(), response: 'pong' });
+});
+
 mainApp.use(
     express.json({
         verify: (_, res: Response, buf, __) => {
