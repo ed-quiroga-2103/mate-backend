@@ -30,7 +30,9 @@ const getAllQuestions = async (req: Request, res: Response) => {
         if (filters.course) {
             const course = await client.course.findFirst({
                 where: {
-                    code: filters.course,
+                    code: {
+                        startsWith: filters.course,
+                    },
                 },
             });
 
@@ -101,6 +103,7 @@ const getAllQuestions = async (req: Request, res: Response) => {
                 return;
             }
             res.json({ questions, total: count, pageSize: questions.length });
+            return;
         }
     }
     const [count, questions] = await client
