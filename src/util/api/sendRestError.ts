@@ -9,7 +9,7 @@ const sendRestError = (
     }
 ) => {
     res.status(status);
-    res.send(object);
+    res.json(object);
     return;
 };
 
