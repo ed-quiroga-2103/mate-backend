@@ -11,6 +11,17 @@ const mainApp = express();
 
 const port = process.env.PORT || 3003;
 
+mainApp.use(
+    cors({
+        origin: '*',
+    })
+);
+
+// mainApp.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     next();
+// });
+
 mainApp.get('/health', (req, res) => {
     res.send(`
     <h1>──────▄▀▄─────▄▀▄</h1>
@@ -38,7 +49,6 @@ mainApp.use(
         },
     })
 );
-mainApp.use(cors());
 
 mainApp.use('/courses', courseApp);
 mainApp.use('/auth', authApp);
