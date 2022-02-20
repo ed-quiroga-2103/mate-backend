@@ -1,4 +1,5 @@
 import express from 'express';
+import deleteQuestion from './deleteQuestion';
 import getAllQuestions from './getAllQuestions';
 import getQuestion from './getQuestion';
 import postQuestion from './postQuestion';
@@ -11,6 +12,7 @@ app.post('/', postQuestion);
 app.get('/', getAllQuestions);
 app.get('/:id', getQuestion);
 app.put('/:id', updateQuestion);
+app.delete('/:id', deleteQuestion);
 //Upload with multi part form
 app.use(upload);
 

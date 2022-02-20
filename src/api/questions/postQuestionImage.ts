@@ -41,7 +41,7 @@ app.post(
             },
         });
 
-        res.json(true);
+        res.json({ url: `${config.QUESTIONS_BUCKET_URL}${req.filename}` });
     }
 );
 
