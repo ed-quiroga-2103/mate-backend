@@ -11,7 +11,7 @@ const app = express();
 const upload = multer({
     storage: multerS3({
         s3: s3,
-        bucket: `${config.QUESTIONS_BUCKET_NAME}/public/questions/`,
+        bucket: `${config.QUESTIONS_BUCKET_NAME}/public/questions`,
         key: function (req, file, cb) {
             const id = req.query.qid;
             const originalName = file.originalname.split('.');
