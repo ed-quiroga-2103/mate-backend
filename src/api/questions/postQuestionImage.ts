@@ -37,11 +37,11 @@ app.post(
                 id: req.query.qid as string,
             },
             data: {
-                url: `${config.QUESTIONS_BUCKET_URL}${req.filename}`,
+                url: `${config.QUESTIONS_BUCKET_URL}/${req.filename}`,
             },
         });
 
-        res.json({ url: `${config.QUESTIONS_BUCKET_URL}${req.filename}` });
+        res.json({ url: `${config.QUESTIONS_BUCKET_URL}/${req.filename}` });
     }
 );
 
