@@ -61,6 +61,9 @@ const getAllQuestions = async (req: Request, res: Response) => {
                             },
                             difficulty: filters.difficulty,
                         },
+                        include: {
+                            course: true,
+                        },
                     }),
                 ])
                 .catch((error) => {
@@ -88,6 +91,9 @@ const getAllQuestions = async (req: Request, res: Response) => {
                             courseId,
                             difficulty: filters.difficulty,
                         },
+                        include: {
+                            course: true,
+                        },
                     }),
                 ])
                 .catch((error) => {
@@ -112,6 +118,9 @@ const getAllQuestions = async (req: Request, res: Response) => {
             client.questions.findMany({
                 take: pageSize,
                 skip: (pageNum - 1) * pageSize,
+                include: {
+                    course: true,
+                },
             }),
         ])
         .catch((error) => {
