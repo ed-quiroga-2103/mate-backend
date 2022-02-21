@@ -3,7 +3,7 @@ import courses from '../../lib/courses';
 import errorHandler, { sendRestError } from '../../util';
 
 const getQuestion = async (req: Request, res: Response) => {
-    const course = courses.getCourse(req.params.id).catch((error) => {
+    const course = await courses.getCourse(req.params.id).catch((error) => {
         const formatted = errorHandler.handlePrismaError(error);
 
         if (formatted) {
