@@ -1,8 +1,6 @@
 import { client } from '../prisma';
 
 const getCourse = async (id) => {
-    console.log(id);
-
     const course = await client.course
         .findUnique({
             where: {
@@ -15,8 +13,6 @@ const getCourse = async (id) => {
         .catch((error) => {
             throw error;
         });
-
-    console.log(course);
 
     return course;
 };
