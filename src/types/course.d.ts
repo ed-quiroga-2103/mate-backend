@@ -6,8 +6,14 @@ export interface InputCourse {
     code: string;
     dependencies: string[];
     graph: InputGraphData[];
+
+    subjects: InputSubjectData[];
 }
 
+export interface InputSubjectData {
+    name: string;
+    resources: any[];
+}
 export interface EditCourse {
     name?: string;
     description?: string;

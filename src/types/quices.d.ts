@@ -4,6 +4,7 @@ export interface QuizGenerationParams {
     length: number;
     tags: string[];
     courseId: string;
+    subjectId?: string;
 }
 
 export interface Quiz {

@@ -8,13 +8,17 @@ const getCourse = async (id) => {
             },
             include: {
                 graph: true,
+                subjects: true,
             },
         })
         .catch((error) => {
             throw error;
         });
 
-    return course;
+    const result: any = course;
+    result.graph = course.graph[0];
+
+    return result;
 };
 
 export default getCourse;

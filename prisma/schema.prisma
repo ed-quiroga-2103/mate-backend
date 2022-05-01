@@ -9,15 +9,16 @@ datasource db {
 }
 
 model graphs {
-  id     String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  links  Json[]
-  nodes  Json[]
-  course course[]
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  links    Json[]
+  nodes    Json[]
+  courseId String
+  course   course @relation(fields: [courseId], references: [id])
 }
 
 model course {
 
-  id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   description String
   name        String
   status      String
@@ -25,15 +26,31 @@ model course {
   dependecies String[]
 
 
-  graph graphs @relation(fields: [graphsId], references: [id], onDelete: Cascade)
-
-  graphsId  String      @db.ObjectId
+  subjects  subject[]
   questions questions[]
   quiz      quiz[]
+
+  graph graphs[]
+
+}
+
+model subject {
+
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name      String
+  resources Json[]
+
+  questions questions[]
+  courseId  String?     @db.ObjectId
+  course    course?     @relation(fields: [courseId], references: [id])
+
+  dependencies String[]
+  quiz         quiz[]
 }
 
 model users {
-  id           String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
   admitionYear String
   dni          String
   email        String
@@ -46,7 +63,7 @@ model users {
 
 model questions {
 
-  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   text       String
   tags       String[]
   url        String?
@@ -54,24 +71,25 @@ model questions {
   options    Json[]
 
   courseId String @db.ObjectId
+  course   course @relation(fields: [courseId], references: [id])
 
 
-  course course @relation(fields: [courseId], references: [id])
-
-
-
+  subjectId String?  @db.ObjectId
+  subject   subject? @relation(fields: [subjectId], references: [id])
 }
 
 model quiz {
 
-  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   questions Json[]
   tags      String[]
   courseId  String   @db.ObjectId
+  course    course   @relation(fields: [courseId], references: [id])
 
 
+  subjectId String?
+  subject   subject? @relation(fields: [subjectId], references: [id])
 
-  course course @relation(fields: [courseId], references: [id])
 
 
   quizResult quizResult[]
@@ -79,7 +97,7 @@ model quiz {
 
 model quizResult {
 
-  id         String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
   answers    Json[]
   approved   Boolean
   percentage Float

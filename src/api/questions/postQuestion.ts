@@ -10,11 +10,18 @@ const postQuestion = async (req: Request, res: Response) => {
         where: {
             code: data.course,
         },
+        include: {
+            subjects: {
+                where: {
+                    id: data.subjectId,
+                },
+            },
+        },
     });
 
-    if (!course) {
+    if (!course || !data.subjectId || course.subjects.length === 0) {
         sendRestError(res, 400, {
-            message: 'No course exists with the provided code',
+            message: 'No course or subject exists with the provided ID',
             verbose: 'data missing',
         });
         return;
@@ -28,6 +35,7 @@ const postQuestion = async (req: Request, res: Response) => {
                 difficulty: data.difficulty,
                 tags: data.tags,
                 courseId: course.id,
+                subjectId: data.subjectId,
             },
         })
         .catch((error) => {

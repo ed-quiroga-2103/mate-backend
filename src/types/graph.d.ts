@@ -23,6 +23,8 @@ export interface GraphFilters {
 export interface InputGraphData {
     name: string;
     linkedTo: string[];
+    resources: any[];
+    dependencies: string[];
 }
 
 export interface Graph {
@@ -32,6 +34,7 @@ export interface Graph {
 
 export interface GraphNode {
     id: string;
+    subjectId: string;
     color?: string;
     size?: number;
     symbolType?:

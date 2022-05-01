@@ -8,11 +8,17 @@ import { sendRestError } from '../../util';
 const generateQuiz = async (req: Request, res: Response) => {
     const params: QuizGenerationParams = {
         courseId: req.query.courseId as string,
+        subjectId: req.query.subjectId as string,
         length: parseInt(req.query.length as string, 10),
         tags: req.query.tags ? JSON.parse(req.query.tags as string) : [],
     };
 
-    const quiz = await quices.createQuiz(params);
+    let quiz;
+    if (params.subjectId) {
+        quiz = await quices.createSubjectQuiz(params);
+    } else {
+        quiz = await quices.createCourseQuiz(params);
+    }
 
     if (!quiz) return;
 

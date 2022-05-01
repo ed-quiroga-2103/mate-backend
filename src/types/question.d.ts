@@ -4,6 +4,7 @@ export interface Question {
     difficulty: string;
     tags: string[];
     options: Option[];
+    subjectId: string;
 }
 
 export interface Option {

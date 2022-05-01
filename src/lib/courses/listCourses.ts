@@ -1,10 +1,18 @@
 import { CourseFilters } from '../../types';
 import { client } from '../prisma';
+import graphs from './graphs';
 
 const listCourses = async (filters: CourseFilters, pageSize, pageNum) => {
     if (Object.entries(filters).length === 0) {
         const [count, courses] = await client
-            .$transaction([client.course.count(), client.course.findMany()])
+            .$transaction([
+                client.course.count(),
+                client.course.findMany({
+                    include: {
+                        subjects: true,
+                    },
+                }),
+            ])
             .catch((error) => {
                 throw error;
             });
@@ -54,6 +62,9 @@ const listCourses = async (filters: CourseFilters, pageSize, pageNum) => {
                               }
                             : undefined,
                     },
+                    include: {
+                        subjects: true,
+                    },
                 }),
             ])
             .catch((error) => {
@@ -97,6 +108,9 @@ const listCourses = async (filters: CourseFilters, pageSize, pageNum) => {
                               contains: filters.code,
                           }
                         : undefined,
+                },
+                include: {
+                    subjects: true,
                 },
             }),
         ])

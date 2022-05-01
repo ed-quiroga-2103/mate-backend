@@ -21,21 +21,19 @@ const editCourse = async (id, courseData: EditCourse) => {
         });
 
     if (courseData.graph) {
-        await editCourseGraph(course.graphsId, courseData.graph).catch(
-            (error) => {
-                throw error;
-            }
-        );
+        await editCourseGraph(course.id, courseData.graph).catch((error) => {
+            throw error;
+        });
     }
 };
 
 const editCourseGraph = async (id, graphData: InputGraphData[]) => {
-    const updatedGraph = graphs.buildGraph(graphData);
+    const updatedGraph = await graphs.buildGraph(graphData, id);
 
     const graph = await client.graphs
-        .update({
+        .updateMany({
             where: {
-                id,
+                courseId: id,
             },
             data: {
                 nodes: updatedGraph.nodes as object,

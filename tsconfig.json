@@ -4,7 +4,8 @@
     "module": "commonjs",                           
     "outDir": "./dist",                             
     "rootDir": "./src",                               
-    "strict": false,                                
+    "strict": false,
+    "downlevelIteration": true,                                
   
  
     "esModuleInterop": true,                            

@@ -63,6 +63,9 @@ const getAllQuestions = async (req: Request, res: Response) => {
                         },
                         include: {
                             course: true,
+                            subject: {
+                                select: { name: true },
+                            },
                         },
                     }),
                 ])
@@ -93,6 +96,9 @@ const getAllQuestions = async (req: Request, res: Response) => {
                         },
                         include: {
                             course: true,
+                            subject: {
+                                select: { name: true },
+                            },
                         },
                     }),
                 ])
@@ -120,6 +126,9 @@ const getAllQuestions = async (req: Request, res: Response) => {
                 skip: (pageNum - 1) * pageSize,
                 include: {
                     course: true,
+                    subject: {
+                        select: { name: true },
+                    },
                 },
             }),
         ])

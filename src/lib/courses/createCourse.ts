@@ -4,14 +4,6 @@ import graphs from './graphs';
 const createCourse = async (courseData: InputCourse) => {
     let graphData;
 
-    try {
-        graphData = graphs.buildGraph(courseData.graph);
-    } catch (error) {
-        throw {
-            code: 'bad-graph',
-        };
-    }
-
     const course = await client.course
         .create({
             data: {
@@ -20,12 +12,26 @@ const createCourse = async (courseData: InputCourse) => {
                 description: courseData.description,
                 dependecies: courseData.dependencies,
                 status: 'active',
-                graph: {
-                    create: {
-                        nodes: graphData.nodes as object,
-                        links: graphData.links as object,
-                    },
-                },
+            },
+        })
+        .catch((error) => {
+            throw error;
+        });
+
+    try {
+        graphData = await graphs.buildGraph(courseData.graph, course.id);
+    } catch (error) {
+        throw {
+            code: 'bad-graph',
+        };
+    }
+
+    const graph = await client.graphs
+        .create({
+            data: {
+                nodes: graphData.nodes as object,
+                links: graphData.links as object,
+                courseId: course.id,
             },
         })
         .catch((error) => {
