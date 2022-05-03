@@ -80,12 +80,12 @@ model questions {
 
 model quiz {
 
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  questions Json[]
-  tags      String[]
-  courseId  String   @db.ObjectId
-  course    course   @relation(fields: [courseId], references: [id])
-
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  questions    Json[]
+  tags         String[]
+  courseId     String   @db.ObjectId
+  course       course   @relation(fields: [courseId], references: [id])
+  isDiagnostic Boolean?
 
   subjectId String?
   subject   subject? @relation(fields: [subjectId], references: [id])

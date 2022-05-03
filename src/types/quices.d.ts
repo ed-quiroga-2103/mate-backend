@@ -5,6 +5,15 @@ export interface QuizGenerationParams {
     tags: string[];
     courseId: string;
     subjectId?: string;
+    isDiagnostic?: boolean;
+}
+
+export interface DiagnosticQuizGenerationParams {
+    easyQty: number;
+    intermedQty: number;
+    advancedQty: number;
+    courseId: string;
+    tags: string[];
 }
 
 export interface Quiz {

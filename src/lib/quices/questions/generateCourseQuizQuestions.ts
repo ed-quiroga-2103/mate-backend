@@ -1,7 +1,7 @@
-import { QuizGenerationParams } from '../../types/quices';
-import { client } from '../prisma';
+import { QuizGenerationParams } from '../../../types/quices';
+import { client } from '../../prisma';
 
-const generateQuizQuestions = async (params: QuizGenerationParams) => {
+const generateCourseQuizQuestions = async (params: QuizGenerationParams) => {
     const randomQuestions = [];
 
     let questions;
@@ -49,4 +49,4 @@ const clearQuestion = (questions, index) => {
     return result;
 };
 
-export default generateQuizQuestions;
+export default generateCourseQuizQuestions;

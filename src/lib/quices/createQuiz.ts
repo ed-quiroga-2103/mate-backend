@@ -1,6 +1,6 @@
 import { QuizGenerationParams } from '../../types/quices';
 import { client } from '../prisma';
-import generateQuizQuestions from './generateQuizQuestions';
+import generateQuizQuestions from './questions/generateQuizQuestions';
 
 const createQuiz = async (params: QuizGenerationParams) => {
     const questions = await generateQuizQuestions(params);

@@ -2,6 +2,7 @@ import { questions } from '@prisma/client';
 import { Question } from '../../types';
 import { Quiz, QuizAnswer } from '../../types/quices';
 import { client } from '../prisma';
+import evaluateDiagnostic from './evaluateDiagnostic';
 import validateQuiz from './validateQuiz';
 
 const answerQuiz = async (quizId, answers: QuizAnswer[]) => {
@@ -13,6 +14,11 @@ const answerQuiz = async (quizId, answers: QuizAnswer[]) => {
 
     if (!quiz) {
         throw new Error('No quiz found');
+    }
+
+    if (quiz.isDiagnostic) {
+        await evaluateDiagnostic(quiz, answers);
+        return { isAproved: 0, percentage: 0, validated: [] };
     }
 
     const evaluation = evaluateQuiz(

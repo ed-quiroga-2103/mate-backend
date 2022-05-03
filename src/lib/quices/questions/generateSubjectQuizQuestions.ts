@@ -1,5 +1,5 @@
-import { QuizGenerationParams } from '../../types/quices';
-import { client } from '../prisma';
+import { QuizGenerationParams } from '../../../types/quices';
+import { client } from '../../prisma';
 
 const generateSubjectQuizQuestions = async (params: QuizGenerationParams) => {
     const randomQuestions = [];
