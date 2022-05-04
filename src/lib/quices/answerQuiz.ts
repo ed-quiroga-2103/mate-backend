@@ -5,20 +5,10 @@ import { client } from '../prisma';
 import evaluateDiagnostic from './evaluateDiagnostic';
 import validateQuiz from './validateQuiz';
 
-const answerQuiz = async (quizId, answers: QuizAnswer[]) => {
-    const quiz = await client.quiz.findFirst({
-        where: {
-            id: quizId,
-        },
-    });
-
-    if (!quiz) {
-        throw new Error('No quiz found');
-    }
-
+const answerQuiz = async (quiz, answers: QuizAnswer[]) => {
     if (quiz.isDiagnostic) {
-        await evaluateDiagnostic(quiz, answers);
-        return { isAproved: 0, percentage: 0, validated: [] };
+        const result = await evaluateDiagnostic(quiz, answers);
+        return result;
     }
 
     const evaluation = evaluateQuiz(

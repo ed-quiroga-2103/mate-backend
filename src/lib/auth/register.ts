@@ -11,6 +11,8 @@ const register = async (data: users) => {
         return undefined;
     }
 
+    console.log(data);
+
     const newUser = await client.users
         .create({
             data: {

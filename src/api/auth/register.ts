@@ -4,6 +4,8 @@ import authLib from '../../lib/auth';
 import config from '../../lib/config/config';
 
 const register = async (req: Request, res: Response) => {
+    console.log(req.body);
+
     const user = await authLib.register(req.body).catch((error) => {});
 
     if (!user) {

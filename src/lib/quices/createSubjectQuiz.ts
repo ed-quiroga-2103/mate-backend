@@ -5,13 +5,6 @@ import generateSubjectQuizQuestions from './questions/generateSubjectQuizQuestio
 const createSubjectQuiz = async (params: QuizGenerationParams) => {
     const questions = await generateSubjectQuizQuestions(params);
 
-    console.log({
-        questions,
-        courseId: params.courseId,
-        tags: params.tags,
-        subjectId: params.subjectId,
-    });
-
     const quiz = await client.quiz.create({
         data: {
             questions,

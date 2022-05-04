@@ -7,8 +7,6 @@ const generateDiagnosticQuizQuestions = async (
 ) => {
     let questions = [];
 
-    console.log(params);
-
     const course = await client.course.findFirst({
         where: {
             id: params.courseId,
@@ -65,16 +63,12 @@ const getRandomQuestions = (data, limit) => {
         realLimit = questions.length;
     }
 
-    console.log(realLimit, limit, questions.length);
-
     for (let i = 0; i < realLimit; i++) {
         const index = Math.floor(Math.random() * questions.length);
 
         const question = questions[index];
 
         questions = clearQuestion(questions, index);
-
-        console.log(question);
 
         randomQuestions.push(question);
     }

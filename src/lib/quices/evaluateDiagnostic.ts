@@ -55,15 +55,6 @@ const evaluateDiagnostic = async (quiz: quiz, quizAnswers: QuizAnswer[]) => {
             suggestAnother: percentage >= 70 && percentage < 85,
             isCompleted: percentage > 85,
         });
-
-        console.log({
-            ...subject,
-            questions,
-            percentage,
-            isApproved: percentage >= 70,
-            suggestAnother: percentage >= 70 && percentage < 85,
-            isCompleted: percentage > 85,
-        });
     }
 
     return result;
