@@ -28,16 +28,10 @@ const answerQuiz = async (req: RequestCtx, res: Response) => {
 
     if (!result) return;
 
-    console.log(quiz.isDiagnostic);
-
     if (quiz.isDiagnostic) {
-        console.log(result);
-
         const progress = { ...(req.ctx.user.progress as object) };
 
-        if (!progress[quiz.courseId]) {
-            progress[quiz.courseId] = result;
-        }
+        progress[quiz.courseId] = (result as any).validated;
 
         await client.users.update({
             where: { id: req.ctx.user.id },

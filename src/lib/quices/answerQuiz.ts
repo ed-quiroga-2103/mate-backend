@@ -8,7 +8,16 @@ import validateQuiz from './validateQuiz';
 const answerQuiz = async (quiz, answers: QuizAnswer[]) => {
     if (quiz.isDiagnostic) {
         const result = await evaluateDiagnostic(quiz, answers);
-        return result;
+
+        let percentage = 0;
+
+        for (const subject of result.subjects) {
+            percentage += subject.percentage;
+        }
+
+        percentage = percentage / result.subjects.length;
+
+        return { percentage, validated: result, isApproved: percentage > 70 };
     }
 
     const evaluation = evaluateQuiz(
@@ -60,7 +69,7 @@ const evaluateQuiz = (quiz: Quiz, answers: QuizAnswer[]) => {
 
     const percentage = (correct / total) * 100;
 
-    if (percentage > 67.5) {
+    if (percentage > 70) {
         isAproved = true;
     }
 
