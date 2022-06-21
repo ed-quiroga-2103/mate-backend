@@ -17,34 +17,26 @@ model graphs {
 }
 
 model course {
-
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
   description String
   name        String
   status      String
-  code        String   @unique
+  code        String      @unique
   dependecies String[]
-
-
-  subjects  subject[]
-  questions questions[]
-  quiz      quiz[]
-
-  graph graphs[]
+  subjects    subject[]
+  questions   questions[]
+  quiz        quiz[]
+  graph       graphs[]
 
 }
 
 model subject {
-
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  name      String
-  resources Json[]
-
-  questions questions[]
-  courseId  String?     @db.ObjectId
-  course    course?     @relation(fields: [courseId], references: [id])
-
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  resources    Json[]
+  questions    questions[]
+  courseId     String?     @db.ObjectId
+  course       course?     @relation(fields: [courseId], references: [id])
   dependencies String[]
   quiz         quiz[]
 }
@@ -69,30 +61,23 @@ model questions {
   url        String?
   difficulty String
   options    Json[]
-
-  courseId String @db.ObjectId
-  course   course @relation(fields: [courseId], references: [id])
-
-
-  subjectId String?  @db.ObjectId
-  subject   subject? @relation(fields: [subjectId], references: [id])
+  courseId   String   @db.ObjectId
+  course     course   @relation(fields: [courseId], references: [id])
+  subjectId  String?  @db.ObjectId
+  subject    subject? @relation(fields: [subjectId], references: [id])
 }
 
 model quiz {
 
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
   questions    Json[]
   tags         String[]
-  courseId     String   @db.ObjectId
-  course       course   @relation(fields: [courseId], references: [id])
+  courseId     String       @db.ObjectId
+  course       course       @relation(fields: [courseId], references: [id])
   isDiagnostic Boolean?
-
-  subjectId String?
-  subject   subject? @relation(fields: [subjectId], references: [id])
-
-
-
-  quizResult quizResult[]
+  subjectId    String?
+  subject      subject?     @relation(fields: [subjectId], references: [id])
+  quizResult   quizResult[]
 }
 
 model quizResult {
@@ -101,8 +86,7 @@ model quizResult {
   answers    Json[]
   approved   Boolean
   percentage Float
-
-  quizId String @db.ObjectId
-  quiz   quiz   @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  quizId     String  @db.ObjectId
+  quiz       quiz    @relation(fields: [quizId], references: [id], onDelete: Cascade)
 
 }
