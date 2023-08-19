@@ -12,6 +12,7 @@ const validateQuiz = (
         const answer = getQuestionAnswer(question.id, answers);
 
         const quizAnswerResult: QuizAnswerResultData = {
+            question,
             isCorrect: isAnswerCorrect(question, answer),
             value: answer ? answer.value : '-',
             answered: answer ? true : false,

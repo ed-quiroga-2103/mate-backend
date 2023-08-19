@@ -2,6 +2,40 @@ import { QuizGenerationParams } from '../../../types/quices';
 import { client } from '../../prisma';
 
 const generateSubjectQuizQuestions = async (params: QuizGenerationParams) => {
+    const scriptQuestions = await client.questions.findMany({
+        select: {
+            id: true,
+        },
+    });
+
+    for (const question of scriptQuestions) {
+        let a = 0;
+        let b = 0;
+        let c = 0;
+        let d = 0;
+
+        while (a == 0 || b == 0 || c == 0 || d == 0) {
+            a = Math.random();
+            b = Math.random();
+            c = Math.random();
+            d = Math.random();
+        }
+
+        const updated = await client.questions.update({
+            where: {
+                id: question.id,
+            },
+            data: {
+                evalVector: {
+                    a,
+                    b,
+                    c,
+                    d,
+                },
+            },
+        });
+    }
+
     const randomQuestions = [];
 
     let questions;
@@ -24,6 +58,8 @@ const generateSubjectQuizQuestions = async (params: QuizGenerationParams) => {
             },
         });
     }
+
+    console.log(questions);
 
     for (let i = 0; i < params.length; i++) {
         const index = Math.floor(Math.random() * questions.length);

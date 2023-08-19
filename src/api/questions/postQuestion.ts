@@ -36,6 +36,7 @@ const postQuestion = async (req: Request, res: Response) => {
                 tags: data.tags,
                 courseId: course.id,
                 subjectId: data.subjectId,
+                evalVector: data.evalVector,
             },
         })
         .catch((error) => {

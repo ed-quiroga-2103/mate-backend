@@ -15,7 +15,16 @@ const register = async (data: users) => {
         .create({
             data: {
                 ...data,
+                evaluationQty: 0,
+                averageGrade: 0,
+                grades: [],
                 progress: {},
+                averageVector: {
+                    a: 0,
+                    b: 0,
+                    c: 0,
+                    d: 0,
+                },
             },
         })
         .catch((error) => {

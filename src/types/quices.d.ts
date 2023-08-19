@@ -32,4 +32,5 @@ export interface QuizAnswerResultData {
     value: string;
     isCorrect: boolean;
     answered: boolean;
+    question: questions;
 }

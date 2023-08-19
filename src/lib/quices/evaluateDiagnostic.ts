@@ -1,5 +1,6 @@
 import { questions, quiz } from '@prisma/client';
 import { QuizAnswer } from '../../types/quices';
+import grades from '../grades';
 import { client } from '../prisma';
 
 const evaluateDiagnostic = async (quiz: quiz, quizAnswers: QuizAnswer[]) => {
@@ -13,7 +14,7 @@ const evaluateDiagnostic = async (quiz: quiz, quizAnswers: QuizAnswer[]) => {
 
     const result: {
         subjects: {
-            questions: { question: any; isCorrect: boolean }[];
+            questions: { question: questions; isCorrect: boolean }[];
             isApproved: boolean;
             suggestAnother: boolean;
             isCompleted: boolean;

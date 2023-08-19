@@ -6,6 +6,8 @@ const me = async (req: RequestCtx, res: Response) => {
 
     const user = req?.ctx.user;
 
+    console.log(user);
+
     if (!user) {
         res.status(404);
         res.send({ message: 'No user found' });

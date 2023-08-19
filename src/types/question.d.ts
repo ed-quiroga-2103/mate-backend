@@ -5,6 +5,12 @@ export interface Question {
     tags: string[];
     options: Option[];
     subjectId: string;
+    evalVector: {
+        a: number;
+        b: number;
+        c: number;
+        d: number;
+    };
 }
 
 export interface Option {

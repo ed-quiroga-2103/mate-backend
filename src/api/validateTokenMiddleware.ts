@@ -19,6 +19,8 @@ const validateTokenMiddleware = async (req, res, next) => {
 
     const user = await authLib.me(decoded.email);
 
+    console.log(user);
+
     req.ctx = {
         user,
     };

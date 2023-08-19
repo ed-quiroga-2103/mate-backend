@@ -5,6 +5,7 @@ import authApp from './api/auth';
 import courseApp from './api/courses';
 import questionsApp from './api/questions/';
 import quicesApp from './api/quiz';
+import usersApp from './api/users';
 import { connect } from './lib/prisma/client';
 
 const mainApp = express();
@@ -54,6 +55,7 @@ mainApp.use('/courses', courseApp);
 mainApp.use('/auth', authApp);
 mainApp.use('/questions', questionsApp);
 mainApp.use('/quices', quicesApp);
+mainApp.use('/users', usersApp);
 
 mainApp.listen(port, async () => {
     await connect();

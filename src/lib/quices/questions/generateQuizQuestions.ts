@@ -23,6 +23,8 @@ const generateQuizQuestions = async (params: QuizGenerationParams) => {
         });
     }
 
+    console.log(questions);
+
     for (let i = 0; i < params.length; i++) {
         const index = Math.floor(Math.random() * questions.length);
 

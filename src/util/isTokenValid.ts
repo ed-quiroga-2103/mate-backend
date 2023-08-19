@@ -4,6 +4,10 @@ const isTokenValid = (token) => {
     const decoded = jwt.decode(token.split(' ')[1]) as any;
     var dateNow = new Date();
 
+    if (!decoded) {
+        return false;
+    }
+
     const secs = decoded.exp;
     const expDate = new Date(1970, 0, 1);
     expDate.setSeconds(secs);

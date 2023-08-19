@@ -1,6 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["mongoDb"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -27,7 +26,6 @@ model course {
   questions   questions[]
   quiz        quiz[]
   graph       graphs[]
-
 }
 
 model subject {
@@ -51,10 +49,15 @@ model users {
   name         String
   password     String
   progress     Json
+
+  averageGrade  Float?
+  evaluationQty Int?
+  grades        Json[]
+  averageVector Json?
+  isAdmin       Boolean?
 }
 
 model questions {
-
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   text       String
   tags       String[]
@@ -65,10 +68,10 @@ model questions {
   course     course   @relation(fields: [courseId], references: [id])
   subjectId  String?  @db.ObjectId
   subject    subject? @relation(fields: [subjectId], references: [id])
+  evalVector Json
 }
 
 model quiz {
-
   id           String       @id @default(auto()) @map("_id") @db.ObjectId
   questions    Json[]
   tags         String[]
@@ -81,12 +84,10 @@ model quiz {
 }
 
 model quizResult {
-
   id         String  @id @default(auto()) @map("_id") @db.ObjectId
   answers    Json[]
   approved   Boolean
   percentage Float
   quizId     String  @db.ObjectId
   quiz       quiz    @relation(fields: [quizId], references: [id], onDelete: Cascade)
-
 }

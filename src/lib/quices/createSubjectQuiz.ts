@@ -5,6 +5,10 @@ import generateSubjectQuizQuestions from './questions/generateSubjectQuizQuestio
 const createSubjectQuiz = async (params: QuizGenerationParams) => {
     const questions = await generateSubjectQuizQuestions(params);
 
+    console.log(questions);
+
+    console.log(params.courseId);
+
     const quiz = await client.quiz.create({
         data: {
             questions,
@@ -13,6 +17,8 @@ const createSubjectQuiz = async (params: QuizGenerationParams) => {
             subjectId: params.subjectId,
         },
     });
+
+    console.log(quiz.questions);
 
     return quiz;
 };
