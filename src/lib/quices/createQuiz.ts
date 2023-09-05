@@ -21,7 +21,6 @@ const createQuiz = async (params: QuizGenerationParams) => {
     const quiz = await client.quiz.create({
         data: {
             questions,
-            evalVector,
             courseId: params.courseId,
             tags: params.tags,
         },
