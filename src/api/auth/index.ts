@@ -9,8 +9,8 @@ const authApp = express();
 
 authApp.post('/login', login);
 authApp.post('/register', register);
-authApp.get('/me', validateTokenMiddleware, me);
 authApp.post('/registerCode', validateTokenMiddleware, generateCode);
+authApp.get('/me', validateTokenMiddleware, me);
 
 
 export default authApp;

@@ -23,8 +23,11 @@ const register = async (req: Request, res: Response) => {
         return res.send({ message: 'Invalid code' });
     }
 
+    delete req.body.code
 
     const user = await authLib.register(req.body).catch((error) => { });
+
+   
 
     if (!user) {
         res.status(403);
@@ -34,6 +37,18 @@ const register = async (req: Request, res: Response) => {
         });
         return;
     }
+
+
+    await client.registrationCode.update({
+        where:{
+            id: search.id
+        },
+        data:{
+            status: 'used'
+        }
+    })
+
+
 
     const token = jwt.sign({ email: user.email }, config.JWT_SECRET, {
         expiresIn: '12h',

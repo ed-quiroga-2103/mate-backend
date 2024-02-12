@@ -31,6 +31,8 @@ const register = async (data: users) => {
             console.log(error); // TODO add error handling
         });
 
+    
+
     return newUser;
 };
 
