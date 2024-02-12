@@ -16,7 +16,7 @@ const getCourse = async (id) => {
         });
 
     const result: any = course;
-    result.graph = course.graph[0];
+    result.graph = course['graph'][0];
 
     return result;
 };

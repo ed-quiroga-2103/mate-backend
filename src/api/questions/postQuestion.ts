@@ -19,7 +19,7 @@ const postQuestion = async (req: Request, res: Response) => {
         },
     });
 
-    if (!course || !data.subjectId || course.subjects.length === 0) {
+    if (!course || !data.subjectId || course['subjects'].length === 0) {
         sendRestError(res, 400, {
             message: 'No course or subject exists with the provided ID',
             verbose: 'data missing',

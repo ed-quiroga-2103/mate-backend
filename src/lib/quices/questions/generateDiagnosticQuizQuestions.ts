@@ -16,7 +16,7 @@ const generateDiagnosticQuizQuestions = async (
         },
     });
 
-    for (const subject of course.subjects) {
+    for (const subject of course['subjects']) {
         const easy = await client.questions.findMany({
             where: {
                 subjectId: subject.id,

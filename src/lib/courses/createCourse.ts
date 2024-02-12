@@ -29,8 +29,8 @@ const createCourse = async (courseData: InputCourse) => {
     const graph = await client.graphs
         .create({
             data: {
-                nodes: graphData.nodes as object,
-                links: graphData.links as object,
+                nodes: graphData.nodes,
+                links: graphData.links,
                 courseId: course.id,
             },
         })

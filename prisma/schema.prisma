@@ -91,3 +91,10 @@ model quizResult {
   quizId     String  @db.ObjectId
   quiz       quiz    @relation(fields: [quizId], references: [id], onDelete: Cascade)
 }
+
+model registrationCode {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  code        String
+  generatedBy String
+  status      String @default("pending")
+}

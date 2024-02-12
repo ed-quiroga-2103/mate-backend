@@ -2,7 +2,7 @@ import { QuizGenerationParams } from '../../../types/quices';
 import { client } from '../../prisma';
 
 const generateSubjectQuizQuestions = async (params: QuizGenerationParams) => {
-    const scriptQuestions = await client.questions.findMany({
+    const scriptQuestions:any = await client.questions.findMany({
         select: {
             id: true,
         },
